@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common'
 import { BrandRepository } from '../../_repositories/brand-repository'
 import { Brand } from 'src/domain/main/enterprise/entities/brand'
 import { Either, left, right } from 'src/core/either'
-import { BrandAlreadyExistError } from '../errors/brand-already-exist-error'
+import { ResourceAlreadyExistError } from 'src/core/error/err/resource-already-exist'
 
 interface CreateBrandUseCaseRequest {
   name: string
 }
 
 type CreateBrandUseCaseResponse = Either<
-  BrandAlreadyExistError,
+  ResourceAlreadyExistError,
   {
     brand: Brand
   }
@@ -25,7 +25,7 @@ export class CreateBrandUseCase {
     const brandAlreadyExists = await this.brandRepository.findByName(name)
 
     if (brandAlreadyExists) {
-      return left(new BrandAlreadyExistError(name))
+      return left(new ResourceAlreadyExistError(name))
     }
 
     const brand = Brand.create({

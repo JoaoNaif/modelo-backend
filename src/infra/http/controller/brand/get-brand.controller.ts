@@ -1,8 +1,6 @@
 import z from 'zod'
-import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
 import {
   BadRequestException,
-  Body,
   Controller,
   Get,
   HttpCode,
@@ -10,15 +8,11 @@ import {
   Param,
 } from '@nestjs/common'
 import { BrandNotExistsError } from 'src/domain/main/app/brand/errors/brand-not-exist-error'
-import { GetBrandUseCase } from 'src/domain/main/app/brand/use-cases/get-user'
+import { GetBrandUseCase } from 'src/domain/main/app/brand/use-cases/get-brand'
 
 const getBrandBodySchema = z.object({
   id: z.string(),
 })
-
-const bodyValidationPipe = new ZodValidationPipe(getBrandBodySchema)
-
-type GetBrandBodySchema = z.infer<typeof getBrandBodySchema>
 
 @Controller()
 export class GetBrandController {

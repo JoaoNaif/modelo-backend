@@ -1,5 +1,5 @@
 import { InMemoryBrandRepository } from 'test/repositories/in-memory-brand-repository'
-import { GetBrandUseCase } from './get-user'
+import { GetBrandUseCase } from './get-brand'
 import { makeBrand } from 'test/factories/make-brand'
 
 let inMemoryBrandRepository: InMemoryBrandRepository

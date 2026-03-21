@@ -1,5 +1,5 @@
 import z from 'zod'
-import { ZodValidationPipe } from '../pipes/zod-validation-pipe'
+import { ZodValidationPipe } from '../../pipes/zod-validation-pipe'
 import {
   BadRequestException,
   Body,
@@ -9,7 +9,7 @@ import {
   Post,
 } from '@nestjs/common'
 import { CreateBrandUseCase } from 'src/domain/main/app/brand/use-cases/create-brand'
-import { BrandAlreadyExistError } from 'src/domain/main/app/brand/errors/brand-already-exist-error'
+import { ResourceAlreadyExistError } from 'src/core/error/err/resource-already-exist'
 
 const createBrandBodySchema = z.object({
   name: z.string(),
@@ -36,7 +36,7 @@ export class CreateBrandController {
       const error = result.value
 
       switch (error.constructor) {
-        case BrandAlreadyExistError:
+        case ResourceAlreadyExistError:
           throw new ConflictException(error.message)
         default:
           throw new BadRequestException('Unexpected error')

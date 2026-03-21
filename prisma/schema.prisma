@@ -40,7 +40,7 @@ model ProductSection {
 
 model Category {
   id        String     @id @default(uuid())
-  name      String
+  name      String     @unique
   parentId  String?
   parent    Category?  @relation("CategoryChildren", fields: [parentId], references: [id])
   children  Category[] @relation("CategoryChildren")
