@@ -8,6 +8,8 @@ import { CreateCategoryController } from './controller/category/create-category.
 import { CreateCategoryUseCase } from 'src/domain/main/app/category/use-cases/create-category'
 import { FetchCategoryController } from './controller/category/fetch-category.controller'
 import { FetchCategoryUseCase } from 'src/domain/main/app/category/use-cases/fetch-category'
+import { CreateProductUseCase } from 'src/domain/main/app/product/use-cases/create-product'
+import { CreateProductController } from './controller/product/create-product.controller'
 
 @Module({
   imports: [DatabaseModule],
@@ -16,12 +18,14 @@ import { FetchCategoryUseCase } from 'src/domain/main/app/category/use-cases/fet
     GetBrandController,
     CreateCategoryController,
     FetchCategoryController,
+    CreateProductController,
   ],
   providers: [
     CreateBrandUseCase,
     GetBrandUseCase,
     CreateCategoryUseCase,
     FetchCategoryUseCase,
+    CreateProductUseCase,
   ],
 })
 export class HttpModule {}

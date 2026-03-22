@@ -4,6 +4,8 @@ import { BrandRepository } from 'src/domain/main/app/_repositories/brand-reposit
 import { PrismaBrandRepository } from './prisma/repositories/prisma-brand-repository'
 import { PrismaCategoryRepository } from './prisma/repositories/prisma-category-repository'
 import { CategoryRepository } from 'src/domain/main/app/_repositories/category-repository'
+import { ProductRepository } from 'src/domain/main/app/_repositories/product-repository'
+import { PrismaProductRepository } from './prisma/repositories/prisma-product-repository'
 
 @Module({
   providers: [
@@ -16,7 +18,11 @@ import { CategoryRepository } from 'src/domain/main/app/_repositories/category-r
       provide: CategoryRepository,
       useClass: PrismaCategoryRepository,
     },
+    {
+      provide: ProductRepository,
+      useClass: PrismaProductRepository,
+    },
   ],
-  exports: [BrandRepository, CategoryRepository],
+  exports: [BrandRepository, CategoryRepository, ProductRepository],
 })
 export class DatabaseModule {}
