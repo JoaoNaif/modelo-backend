@@ -1,4 +1,3 @@
-import { CreateCategoryUseCase } from './create-category'
 import { InMemoryCategoryRepository } from 'test/repositories/in-memory-category-repository'
 import { FetchCategoryUseCase } from './fetch-category'
 import { makeCategory } from 'test/factories/make-category'
