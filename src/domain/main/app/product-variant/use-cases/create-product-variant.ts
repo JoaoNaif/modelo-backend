@@ -1,20 +1,27 @@
 import { Either, left, right } from 'src/core/either'
 import { ResourceAlreadyExistError } from 'src/core/error/err/resource-already-exist'
 import { Injectable } from '@nestjs/common'
-import { Product } from 'src/domain/main/enterprise/entities/product'
 import { DtoGetProductVariant } from '../dtos/dto-get-product-variant'
 import { ProductVariantRepository } from '../../_repositories/product-variant-repository'
 import { ProductVariant } from 'src/domain/main/enterprise/entities/product-variant'
 import { ProductRepository } from '../../_repositories/product-repository'
+import { ProductPrice } from 'src/domain/main/enterprise/entities/product-price'
+import { ProductPriceRepository } from '../../_repositories/product-price-repository'
+import { ResourceNotFoundError } from 'src/core/error/err/not-found-error'
 
 interface CreateProductVariantUseCaseRequest {
   name: string
   productId: string
   sku: string
+  costPrice: number
+  originalPrice: number | null
+  salePrice: number
+  installments: number | null
+  hasInterest?: boolean
 }
 
 type CreateProductVariantUseCaseResponse = Either<
-  ResourceAlreadyExistError,
+  ResourceAlreadyExistError | ResourceNotFoundError,
   {
     productVariant: DtoGetProductVariant
   }
@@ -24,13 +31,19 @@ type CreateProductVariantUseCaseResponse = Either<
 export class CreateProductVariantUseCase {
   constructor(
     private productVariantRepository: ProductVariantRepository,
-    private productRepository: ProductRepository
+    private productRepository: ProductRepository,
+    private productPriceRepository: ProductPriceRepository
   ) {}
 
   async execute({
     name,
     sku,
     productId,
+    costPrice,
+    originalPrice,
+    salePrice,
+    installments,
+    hasInterest,
   }: CreateProductVariantUseCaseRequest): Promise<CreateProductVariantUseCaseResponse> {
     const skuAlreadyExists = await this.productVariantRepository.findBySku(sku)
 
@@ -51,7 +64,7 @@ export class CreateProductVariantUseCase {
     const product = await this.productRepository.findById(productId)
 
     if (!product) {
-      return left(new ResourceAlreadyExistError(productId))
+      return left(new ResourceNotFoundError(productId))
     }
 
     const productVariant = ProductVariant.create({
@@ -62,6 +75,16 @@ export class CreateProductVariantUseCase {
 
     await this.productVariantRepository.create(productVariant)
 
+    const productPrice = ProductPrice.create({
+      variantId: productVariant.id.toString(),
+      costPrice,
+      originalPrice,
+      salePrice,
+      installments,
+      hasInterest: hasInterest ?? false,
+    })
+    await this.productPriceRepository.create(productPrice)
+
     return right({
       productVariant: {
         id: productVariant.id.toString(),
@@ -70,6 +93,17 @@ export class CreateProductVariantUseCase {
         sku: productVariant.sku,
         createdAt: productVariant.createdAt,
         updatedAt: productVariant.updatedAt,
+        price: {
+          id: productPrice.id.toString(),
+          variantId: productPrice.variantId,
+          costPrice: productPrice.costPrice,
+          originalPrice: productPrice.originalPrice,
+          salePrice: productPrice.salePrice,
+          installments: productPrice.installments,
+          hasInterest: productPrice.hasInterest,
+          createdAt: productPrice.createdAt,
+          updatedAt: productPrice.updatedAt,
+        },
       },
     })
   }

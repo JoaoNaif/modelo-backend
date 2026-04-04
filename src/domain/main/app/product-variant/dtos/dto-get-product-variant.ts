@@ -1,3 +1,5 @@
+import { DtoGetProductPrice } from './dto-get-product-price'
+
 export interface DtoGetProductVariant {
   id: string
   name: string
@@ -5,4 +7,5 @@ export interface DtoGetProductVariant {
   productId: string
   createdAt: Date
   updatedAt?: Date | null
+  price: DtoGetProductPrice
 }
