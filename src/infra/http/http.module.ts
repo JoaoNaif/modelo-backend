@@ -14,6 +14,8 @@ import { FetchProductController } from './controller/product/fetch-product.contr
 import { FetchProductUseCase } from 'src/domain/main/app/product/use-cases/fetch-product'
 import { CreateProductVariantController } from './controller/product-variant/create-product-variant.controller'
 import { CreateProductVariantUseCase } from 'src/domain/main/app/product-variant/use-cases/create-product-variant'
+import { FetchProductVariantController } from './controller/product-variant/fetch-product-variant.controller'
+import { FetchProductVariantUseCase } from 'src/domain/main/app/product-variant/use-cases/fetch-product-variant'
 
 @Module({
   imports: [DatabaseModule],
@@ -25,6 +27,7 @@ import { CreateProductVariantUseCase } from 'src/domain/main/app/product-variant
     CreateProductController,
     FetchProductController,
     CreateProductVariantController,
+    FetchProductVariantController,
   ],
   providers: [
     CreateBrandUseCase,
@@ -34,6 +37,7 @@ import { CreateProductVariantUseCase } from 'src/domain/main/app/product-variant
     CreateProductUseCase,
     FetchProductUseCase,
     CreateProductVariantUseCase,
+    FetchProductVariantUseCase,
   ],
 })
 export class HttpModule {}
