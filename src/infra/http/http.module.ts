@@ -21,6 +21,8 @@ import { UploadAndCreateAttachmentController } from './controller/product-image/
 import { UploadAndCreateAttachmentUseCase } from 'src/domain/main/app/product-image/use-cases/upload-and-create-attachment'
 import { CreateProductSectionController } from './controller/product-section/create-product-section.controller'
 import { CreateProductSectionUseCase } from 'src/domain/main/app/product-section/use-cases/create-product-section'
+import { FetchProductSectionController } from './controller/product-section/fetch-product-section.controller'
+import { FetchProductSectionUseCase } from 'src/domain/main/app/product-section/use-cases/fetch-product-section'
 
 @Module({
   imports: [
@@ -42,6 +44,7 @@ import { CreateProductSectionUseCase } from 'src/domain/main/app/product-section
     CreateProductVariantController,
     FetchProductVariantController,
     CreateProductSectionController,
+    FetchProductSectionController,
   ],
   providers: [
     CreateBrandUseCase,
@@ -53,6 +56,7 @@ import { CreateProductSectionUseCase } from 'src/domain/main/app/product-section
     CreateProductVariantUseCase,
     FetchProductVariantUseCase,
     CreateProductSectionUseCase,
+    FetchProductSectionUseCase,
   ],
 })
 export class HttpModule {}

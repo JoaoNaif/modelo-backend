@@ -1,3 +1,4 @@
+import { DtoGetProductSection } from '../../product-section/dtos/dto-get-product-section'
 import { DtoGetProductPrice } from './dto-get-product-price'
 
 export interface DtoGetProductVariant {
@@ -8,4 +9,5 @@ export interface DtoGetProductVariant {
   createdAt: Date
   updatedAt?: Date | null
   price: DtoGetProductPrice
+  section?: DtoGetProductSection
 }
