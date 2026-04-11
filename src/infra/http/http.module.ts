@@ -19,6 +19,8 @@ import { FetchProductVariantUseCase } from 'src/domain/main/app/product-variant/
 import { MulterModule } from '@nestjs/platform-express'
 import { UploadAndCreateAttachmentController } from './controller/product-image/upload-and-create-attachment.controller'
 import { UploadAndCreateAttachmentUseCase } from 'src/domain/main/app/product-image/use-cases/upload-and-create-attachment'
+import { CreateProductSectionController } from './controller/product-section/create-product-section.controller'
+import { CreateProductSectionUseCase } from 'src/domain/main/app/product-section/use-cases/create-product-section'
 
 @Module({
   imports: [
@@ -39,7 +41,7 @@ import { UploadAndCreateAttachmentUseCase } from 'src/domain/main/app/product-im
     FetchProductController,
     CreateProductVariantController,
     FetchProductVariantController,
-    UploadAndCreateAttachmentController,
+    CreateProductSectionController,
   ],
   providers: [
     CreateBrandUseCase,
@@ -50,7 +52,7 @@ import { UploadAndCreateAttachmentUseCase } from 'src/domain/main/app/product-im
     FetchProductUseCase,
     CreateProductVariantUseCase,
     FetchProductVariantUseCase,
-    UploadAndCreateAttachmentUseCase,
+    CreateProductSectionUseCase,
   ],
 })
 export class HttpModule {}
