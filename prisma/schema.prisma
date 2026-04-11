@@ -101,6 +101,7 @@ model ProductImage {
   variantId String?
   variant   ProductVariant? @relation(fields: [variantId], references: [id])
   url       String
+  title     String?
   order     Int             @default(0)
   createdAt DateTime        @default(now())
 }

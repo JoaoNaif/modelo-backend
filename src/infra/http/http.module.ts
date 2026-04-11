@@ -16,9 +16,20 @@ import { CreateProductVariantController } from './controller/product-variant/cre
 import { CreateProductVariantUseCase } from 'src/domain/main/app/product-variant/use-cases/create-product-variant'
 import { FetchProductVariantController } from './controller/product-variant/fetch-product-variant.controller'
 import { FetchProductVariantUseCase } from 'src/domain/main/app/product-variant/use-cases/fetch-product-variant'
+import { MulterModule } from '@nestjs/platform-express'
+import { UploadAndCreateAttachmentController } from './controller/product-image/upload-and-create-attachment.controller'
+import { UploadAndCreateAttachmentUseCase } from 'src/domain/main/app/product-image/use-cases/upload-and-create-attachment'
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [
+    DatabaseModule,
+    MulterModule.register({
+      storage: undefined,
+      limits: {
+        fileSize: 10 * 1024 * 1024, // 10MB
+      },
+    }),
+  ],
   controllers: [
     CreateBrandController,
     GetBrandController,
@@ -28,6 +39,7 @@ import { FetchProductVariantUseCase } from 'src/domain/main/app/product-variant/
     FetchProductController,
     CreateProductVariantController,
     FetchProductVariantController,
+    UploadAndCreateAttachmentController,
   ],
   providers: [
     CreateBrandUseCase,
@@ -38,6 +50,7 @@ import { FetchProductVariantUseCase } from 'src/domain/main/app/product-variant/
     FetchProductUseCase,
     CreateProductVariantUseCase,
     FetchProductVariantUseCase,
+    UploadAndCreateAttachmentUseCase,
   ],
 })
 export class HttpModule {}
