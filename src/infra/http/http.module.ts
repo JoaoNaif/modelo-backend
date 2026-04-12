@@ -23,6 +23,8 @@ import { CreateProductSectionController } from './controller/product-section/cre
 import { CreateProductSectionUseCase } from 'src/domain/main/app/product-section/use-cases/create-product-section'
 import { FetchProductSectionController } from './controller/product-section/fetch-product-section.controller'
 import { FetchProductSectionUseCase } from 'src/domain/main/app/product-section/use-cases/fetch-product-section'
+import { CreateAttributeController } from './controller/attribute/create-attribute.controller'
+import { CreateAttributeUseCase } from 'src/domain/main/app/attribute/use-cases/create-attribute'
 
 @Module({
   imports: [
@@ -45,6 +47,7 @@ import { FetchProductSectionUseCase } from 'src/domain/main/app/product-section/
     FetchProductVariantController,
     CreateProductSectionController,
     FetchProductSectionController,
+    CreateAttributeController,
   ],
   providers: [
     CreateBrandUseCase,
@@ -57,6 +60,7 @@ import { FetchProductSectionUseCase } from 'src/domain/main/app/product-section/
     FetchProductVariantUseCase,
     CreateProductSectionUseCase,
     FetchProductSectionUseCase,
+    CreateAttributeUseCase,
   ],
 })
 export class HttpModule {}
