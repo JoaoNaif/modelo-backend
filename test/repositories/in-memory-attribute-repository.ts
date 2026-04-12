@@ -28,7 +28,13 @@ export class InMemoryAttributeRepository implements AttributeRepository {
     return attribute
   }
 
-  async findAll(): Promise<Attribute[]> {
+  async findAll(search: string): Promise<Attribute[]> {
+    if (search) {
+      return this.items.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      )
+    }
+
     return this.items
   }
 
