@@ -17,8 +17,6 @@ import { CreateProductVariantUseCase } from 'src/domain/main/app/product-variant
 import { FetchProductVariantController } from './controller/product-variant/fetch-product-variant.controller'
 import { FetchProductVariantUseCase } from 'src/domain/main/app/product-variant/use-cases/fetch-product-variant'
 import { MulterModule } from '@nestjs/platform-express'
-import { UploadAndCreateAttachmentController } from './controller/product-image/upload-and-create-attachment.controller'
-import { UploadAndCreateAttachmentUseCase } from 'src/domain/main/app/product-image/use-cases/upload-and-create-attachment'
 import { CreateProductSectionController } from './controller/product-section/create-product-section.controller'
 import { CreateProductSectionUseCase } from 'src/domain/main/app/product-section/use-cases/create-product-section'
 import { FetchProductSectionController } from './controller/product-section/fetch-product-section.controller'
@@ -27,6 +25,10 @@ import { CreateAttributeController } from './controller/attribute/create-attribu
 import { CreateAttributeUseCase } from 'src/domain/main/app/attribute/use-cases/create-attribute'
 import { FetchAttributeController } from './controller/attribute/fetch-attribute.controller'
 import { FetchAttributeUseCase } from 'src/domain/main/app/attribute/use-cases/fetch-attribute'
+import { CreateAttributeValueController } from './controller/attribute-value/create-attribute-value.controller'
+import { CreateAttributeValueUseCase } from 'src/domain/main/app/attribute-value/use-cases/create-attribute-value'
+import { FetchAttributeValueUseCase } from 'src/domain/main/app/attribute-value/use-cases/fetch-attribute-value'
+import { FetchAttributeValueController } from './controller/attribute-value/fetch-attribute-value.controller'
 
 @Module({
   imports: [
@@ -51,6 +53,8 @@ import { FetchAttributeUseCase } from 'src/domain/main/app/attribute/use-cases/f
     FetchProductSectionController,
     CreateAttributeController,
     FetchAttributeController,
+    CreateAttributeValueController,
+    FetchAttributeValueController,
   ],
   providers: [
     CreateBrandUseCase,
@@ -65,6 +69,8 @@ import { FetchAttributeUseCase } from 'src/domain/main/app/attribute/use-cases/f
     FetchProductSectionUseCase,
     CreateAttributeUseCase,
     FetchAttributeUseCase,
+    CreateAttributeValueUseCase,
+    FetchAttributeValueUseCase,
   ],
 })
 export class HttpModule {}

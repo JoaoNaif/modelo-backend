@@ -16,6 +16,8 @@ import { ProductSectionRepository } from 'src/domain/main/app/_repositories/prod
 import { PrismaProductSectionRepository } from './prisma/repositories/prisma-product-section-repository'
 import { AttributeRepository } from 'src/domain/main/app/_repositories/attribute-repository'
 import { PrismaAttributeRepository } from './prisma/repositories/prisma-attribute-repository'
+import { AttributeValueRepository } from 'src/domain/main/app/_repositories/attribute-value-repository'
+import { PrismaAttributeValueRepository } from './prisma/repositories/prisma-attribute-value-repository'
 
 @Module({
   providers: [
@@ -52,6 +54,10 @@ import { PrismaAttributeRepository } from './prisma/repositories/prisma-attribut
       provide: AttributeRepository,
       useClass: PrismaAttributeRepository,
     },
+    {
+      provide: AttributeValueRepository,
+      useClass: PrismaAttributeValueRepository,
+    },
   ],
   exports: [
     BrandRepository,
@@ -62,6 +68,7 @@ import { PrismaAttributeRepository } from './prisma/repositories/prisma-attribut
     ProductImageRepository,
     ProductSectionRepository,
     AttributeRepository,
+    AttributeValueRepository,
   ],
 })
 export class DatabaseModule {}
