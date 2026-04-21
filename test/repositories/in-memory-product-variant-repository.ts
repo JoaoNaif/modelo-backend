@@ -1,11 +1,29 @@
 import { ProductVariantRepository } from 'src/domain/main/app/_repositories/product-variant-repository'
 import { ProductVariant } from 'src/domain/main/enterprise/entities/product-variant'
+import { InMemoryAttributeValueRepository } from './in-memory-attribute-value-repository'
 
 export class InMemoryProductVariantRepository implements ProductVariantRepository {
-  private items: ProductVariant[] = []
+  public items: ProductVariant[] = []
+
+  constructor(
+    private attributeValueRepository?: InMemoryAttributeValueRepository
+  ) {}
 
   async create(productVariant: ProductVariant): Promise<void> {
     this.items.push(productVariant)
+
+    if (
+      this.attributeValueRepository &&
+      productVariant.attributeValuesIds &&
+      productVariant.attributeValuesIds.length > 0
+    ) {
+      for (const attributeValueId of productVariant.attributeValuesIds) {
+        this.attributeValueRepository.variantAttributeValues.push({
+          variantId: productVariant.id.toString(),
+          attributeValueId,
+        })
+      }
+    }
   }
 
   async findById(id: string): Promise<ProductVariant | null> {
@@ -51,6 +69,20 @@ export class InMemoryProductVariantRepository implements ProductVariantRepositor
     const index = this.items.findIndex((item) => item.id === productVariant.id)
 
     this.items[index] = productVariant
+
+    if (this.attributeValueRepository && productVariant.attributeValuesIds) {
+      this.attributeValueRepository.variantAttributeValues =
+        this.attributeValueRepository.variantAttributeValues.filter(
+          (vav) => vav.variantId !== productVariant.id.toString()
+        )
+
+      for (const attributeValueId of productVariant.attributeValuesIds) {
+        this.attributeValueRepository.variantAttributeValues.push({
+          variantId: productVariant.id.toString(),
+          attributeValueId,
+        })
+      }
+    }
   }
 
   async delete(productVariant: ProductVariant): Promise<void> {

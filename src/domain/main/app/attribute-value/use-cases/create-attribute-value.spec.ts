@@ -13,7 +13,9 @@ let sut: CreateAttributeValueUseCase
 describe('CreateAttributeValueUseCase', () => {
   beforeEach(() => {
     inMemoryAttributeRepository = new InMemoryAttributeRepository()
-    inMemoryAttributeValueRepository = new InMemoryAttributeValueRepository()
+    inMemoryAttributeValueRepository = new InMemoryAttributeValueRepository(
+      inMemoryAttributeRepository
+    )
     sut = new CreateAttributeValueUseCase(
       inMemoryAttributeRepository,
       inMemoryAttributeValueRepository

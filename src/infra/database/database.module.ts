@@ -18,8 +18,10 @@ import { AttributeRepository } from 'src/domain/main/app/_repositories/attribute
 import { PrismaAttributeRepository } from './prisma/repositories/prisma-attribute-repository'
 import { AttributeValueRepository } from 'src/domain/main/app/_repositories/attribute-value-repository'
 import { PrismaAttributeValueRepository } from './prisma/repositories/prisma-attribute-value-repository'
+import { CacheModule } from '../cache/cache.module'
 
 @Module({
+  imports: [CacheModule],
   providers: [
     PrismaService,
     {

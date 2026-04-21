@@ -12,13 +12,23 @@ export class PrismaProductVariantRepository implements ProductVariantRepository 
     const data = PrismaProductVariantMapper.toPrisma(productVariant)
 
     await this.prisma.productVariant.create({
-      data,
+      data: {
+        ...data,
+        attributeValues: productVariant.attributeValuesIds
+          ? {
+              connect: productVariant.attributeValuesIds.map((id) => ({ id })),
+            }
+          : undefined,
+      },
     })
   }
 
   async findById(id: string): Promise<ProductVariant | null> {
     const productVariant = await this.prisma.productVariant.findUnique({
       where: { id },
+      include: {
+        attributeValues: true,
+      },
     })
 
     if (!productVariant) {
@@ -31,6 +41,9 @@ export class PrismaProductVariantRepository implements ProductVariantRepository 
   async findAllByProductId(productId: string): Promise<ProductVariant[]> {
     const productVariants = await this.prisma.productVariant.findMany({
       where: { productId },
+      include: {
+        attributeValues: true,
+      },
     })
 
     return productVariants.map(PrismaProductVariantMapper.toDomain)
@@ -42,6 +55,9 @@ export class PrismaProductVariantRepository implements ProductVariantRepository 
   ): Promise<ProductVariant | null> {
     const productVariant = await this.prisma.productVariant.findFirst({
       where: { name, productId },
+      include: {
+        attributeValues: true,
+      },
     })
 
     if (!productVariant) {
@@ -54,6 +70,9 @@ export class PrismaProductVariantRepository implements ProductVariantRepository 
   async findBySku(sku: string): Promise<ProductVariant | null> {
     const productVariant = await this.prisma.productVariant.findFirst({
       where: { sku },
+      include: {
+        attributeValues: true,
+      },
     })
 
     if (!productVariant) {
@@ -68,7 +87,14 @@ export class PrismaProductVariantRepository implements ProductVariantRepository 
 
     await this.prisma.productVariant.update({
       where: { id: productVariant.id.toString() },
-      data,
+      data: {
+        ...data,
+        attributeValues: productVariant.attributeValuesIds
+          ? {
+              set: productVariant.attributeValuesIds.map((id) => ({ id })),
+            }
+          : undefined,
+      },
     })
   }
 

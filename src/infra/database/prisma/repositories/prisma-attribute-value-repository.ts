@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common'
-import { AttributeValueRepository } from 'src/domain/main/app/_repositories/attribute-value-repository'
+import {
+  AttributeValueRepository,
+  AttributeValueWithAttribute,
+} from 'src/domain/main/app/_repositories/attribute-value-repository'
 import { AttributeValue } from 'src/domain/main/enterprise/entities/attribute-value'
 import { PrismaService } from '../prisma.service'
 import { PrismaAttributeValueMapper } from '../mappers/prisma-attribute-value-mapper'
@@ -54,6 +57,30 @@ export class PrismaAttributeValueRepository implements AttributeValueRepository 
     })
 
     return attributeValues.map(PrismaAttributeValueMapper.toDomain)
+  }
+
+  async findManyWithAttributeByVariantId(
+    variantId: string
+  ): Promise<AttributeValueWithAttribute[]> {
+    const attributeValues = await this.prisma.attributeValue.findMany({
+      where: {
+        variants: {
+          some: {
+            id: variantId,
+          },
+        },
+      },
+      include: {
+        attribute: true,
+      },
+    })
+
+    return attributeValues.map((av) => ({
+      id: av.id,
+      attributeId: av.attributeId,
+      value: av.value,
+      name: av.attribute.name,
+    }))
   }
 
   async save(attributeValue: AttributeValue): Promise<void> {

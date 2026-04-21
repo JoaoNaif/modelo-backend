@@ -22,6 +22,7 @@ const createProductVariantBodySchema = z.object({
   salePrice: z.number(),
   installments: z.number().nullable(),
   hasInterest: z.boolean().optional(),
+  attributeValuesIds: z.array(z.string()).optional(),
 })
 
 const bodyValidationPipe = new ZodValidationPipe(createProductVariantBodySchema)
@@ -48,6 +49,7 @@ export class CreateProductVariantController {
       salePrice,
       installments,
       hasInterest,
+      attributeValuesIds,
     } = body
 
     const result = await this.createProductVariantUseCase.execute({
@@ -59,6 +61,7 @@ export class CreateProductVariantController {
       salePrice,
       installments,
       hasInterest,
+      attributeValuesIds,
     })
 
     if (result.isLeft()) {

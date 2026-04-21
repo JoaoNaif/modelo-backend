@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { All, Module } from '@nestjs/common'
 import { DatabaseModule } from '../database/database.module'
 import { CreateBrandController } from './controller/brand/create-brand.controller'
 import { CreateBrandUseCase } from 'src/domain/main/app/brand/use-cases/create-brand'
@@ -29,6 +29,10 @@ import { CreateAttributeValueController } from './controller/attribute-value/cre
 import { CreateAttributeValueUseCase } from 'src/domain/main/app/attribute-value/use-cases/create-attribute-value'
 import { FetchAttributeValueUseCase } from 'src/domain/main/app/attribute-value/use-cases/fetch-attribute-value'
 import { FetchAttributeValueController } from './controller/attribute-value/fetch-attribute-value.controller'
+import { AllProductVariantController } from './controller/product-variant/all-product-variant.controller'
+import { AllProductVariantUseCase } from 'src/domain/main/app/product-variant/use-cases/all-product-variant'
+import { AddAttributeInProductVariantController } from './controller/product-variant/add-attribute-in-product-variant.controller'
+import { AddAttributeInProductVariantUseCase } from 'src/domain/main/app/product-variant/use-cases/add-attribute-in-product-variant'
 
 @Module({
   imports: [
@@ -55,6 +59,8 @@ import { FetchAttributeValueController } from './controller/attribute-value/fetc
     FetchAttributeController,
     CreateAttributeValueController,
     FetchAttributeValueController,
+    AllProductVariantController,
+    AddAttributeInProductVariantController,
   ],
   providers: [
     CreateBrandUseCase,
@@ -71,6 +77,8 @@ import { FetchAttributeValueController } from './controller/attribute-value/fetc
     FetchAttributeUseCase,
     CreateAttributeValueUseCase,
     FetchAttributeValueUseCase,
+    AllProductVariantUseCase,
+    AddAttributeInProductVariantUseCase,
   ],
 })
 export class HttpModule {}

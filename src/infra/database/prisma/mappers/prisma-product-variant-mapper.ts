@@ -12,6 +12,9 @@ export class PrismaProductVariantMapper {
         name: raw.name,
         sku: raw.sku,
         productId: raw.productId,
+        attributeValuesIds: raw.attributeValues?.map((av: any) =>
+          av.id.toString()
+        ),
       },
       new UniqueEntityId(raw.id)
     )

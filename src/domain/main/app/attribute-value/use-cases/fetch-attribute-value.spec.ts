@@ -1,14 +1,19 @@
 import { FetchAttributeValueUseCase } from './fetch-attribute-value'
 import { InMemoryAttributeValueRepository } from 'test/repositories/in-memory-attribute-value-repository'
+import { InMemoryAttributeRepository } from 'test/repositories/in-memory-attribute-repository'
 import { makeAttributeValue } from 'test/factories/make-attribute-value'
 import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
 
+let inMemoryAttributeRepository: InMemoryAttributeRepository
 let inMemoryAttributeValueRepository: InMemoryAttributeValueRepository
 let useCase: FetchAttributeValueUseCase
 
 describe('FetchAttributeValueUseCase', () => {
   beforeEach(() => {
-    inMemoryAttributeValueRepository = new InMemoryAttributeValueRepository()
+    inMemoryAttributeRepository = new InMemoryAttributeRepository()
+    inMemoryAttributeValueRepository = new InMemoryAttributeValueRepository(
+      inMemoryAttributeRepository
+    )
     useCase = new FetchAttributeValueUseCase(inMemoryAttributeValueRepository)
   })
 

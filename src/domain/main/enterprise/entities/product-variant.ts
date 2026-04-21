@@ -6,6 +6,7 @@ export interface ProductVariantProps {
   productId: string
   name: string
   sku: string
+  attributeValuesIds?: string[]
   createdAt: Date
   updatedAt?: Date | null
 }
@@ -21,6 +22,14 @@ export class ProductVariant extends Entity<ProductVariantProps> {
 
   get sku() {
     return this.props.sku
+  }
+
+  get attributeValuesIds() {
+    return this.props.attributeValuesIds
+  }
+
+  set attributeValuesIds(attributeValuesIds: string[] | undefined) {
+    this.props.attributeValuesIds = attributeValuesIds
   }
 
   get createdAt() {

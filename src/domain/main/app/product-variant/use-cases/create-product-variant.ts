@@ -18,6 +18,7 @@ interface CreateProductVariantUseCaseRequest {
   salePrice: number
   installments: number | null
   hasInterest?: boolean
+  attributeValuesIds?: string[]
 }
 
 type CreateProductVariantUseCaseResponse = Either<
@@ -44,6 +45,7 @@ export class CreateProductVariantUseCase {
     salePrice,
     installments,
     hasInterest,
+    attributeValuesIds,
   }: CreateProductVariantUseCaseRequest): Promise<CreateProductVariantUseCaseResponse> {
     const skuAlreadyExists = await this.productVariantRepository.findBySku(sku)
 
@@ -71,6 +73,7 @@ export class CreateProductVariantUseCase {
       name,
       productId,
       sku,
+      attributeValuesIds,
     })
 
     await this.productVariantRepository.create(productVariant)
